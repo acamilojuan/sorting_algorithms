@@ -3,31 +3,83 @@
  * insertion_sort_list - 
  * @list:
  */
-void insertion_sort_list(listint_t **list)
+void swap(listint_t **list, listint_t *back, listint_t *front)
 {
-	listint_t *current = (*list)->next, *tmp = *list, *aux = (*list)->next;
+	if(back->prev)
+		back->prev->next = front;
+	else
+		*list = front;
+	back->next = front->next;
+	front->next = back;
+	if(back->next)
+		back->next->prev = back;
+	front->prev = back->prev;
+	back->prev = front;
+}
 
-	while(current->next != NULL)
+void insertion_sort_list(listint_t **list)
+{ 
+	listint_t *current, *back, *front;
+	back = (*list);
+	front = (*list)->next;
+	current = front->next;
+
+	if((*list)->next)
 	{
-		if(current->prev->n > current->n)
+		while(front)
 		{
-			current = current->next;
-			while(aux->prev->n > aux->n)
+			while(front->prev && front->prev->n > front->n)
 			{
-				tmp->prev->next = aux;
-				aux->prev = tmp->prev;
-				tmp->prev = aux;
-				tmp->next = current;
-				aux->next = tmp;
-				tmp = aux->prev;
+				swap(list, back, front);
+				/**front = current->prev;*/
+				back = front->prev;
 				print_list(*list);
 			}
+			front = current;
+			if (front)
+			{
+				current = current->next;
+				back = front->prev;
+
+			}
+			else
+			{
+				break;
+			}
 		}
+	}
+
+	/**listint_t *node, *current;
+
+	node = (*list)->next;
+	current = node->next;
+
+	while (node)
+	{
+		while (node->prev && node->n < node->prev->n)
+		{
+			node->prev->next = node->next;
+			if (node->next)
+				node->next->prev = node->prev;
+			node->next = node->prev;
+			node->prev = node->prev->prev;
+			node->next->prev = node;
+
+			if (node->prev == NULL)
+				*list = node;
+			else
+				node->prev->next = node;
+			print_list(*list);
+		}
+		node = current;
+		if (node)
+			current = current->next;
 		else
 		{
-			current = current->next;
-		}	
-		aux = current;
-		tmp = aux->prev;
-	}
+			break;
+		}
+		
+		
+		
+	}*/
 }
