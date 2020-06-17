@@ -15,13 +15,13 @@ int split(int *array, size_t size, int low, int high)
 
 	for (; count < high; count++)
 	{
-		if (array[count] < pivot)
+		if (array[count] <= pivot)
 		{
 			minor_count++;
 			tmp = array[minor_count];
 			array[minor_count] = array[count];
 			array[count] = tmp;
-			if (minor_count != count)
+			if (minor_count != count && array[count] != array[minor_count])
 				print_array(array, size);
 
 		}
